@@ -14,9 +14,6 @@
 # Import Terminal Icons
 Import-Module -Name Terminal-Icons
 
-# Set Starship config file location
-$ENV:STARSHIP_CONFIG = "$HOME\.starship\starship.toml"
-
 function edit-profile {
     notepad $profile.CurrentUserAllHosts
 }
@@ -28,12 +25,7 @@ function goto {
 
     Switch ($location) {
         "projects" {
-
-            if ($env:GOTO_PROJECTS_PATH) {
-                Set-Location -Path $ENV:GOTO_PROJECTS_PATH
-            } else {
-                echo "GOTO_PROJECTS_PATH environment variable is undefined."
-            }
+            Set-Location -Path $ENV:GOTO_PROJECTS_PATH
         }
         "documents" {
             Set-Location -Path "$HOME/documents"
@@ -73,7 +65,13 @@ function export($name, $value) {
     set-item -force -path "env:$name" -value $value;
 }
 
-if ()
+if (-not $ENV:STARSHIP_CONFIG) {
+    Write-Warning "Starship Configuration environment variable is missing. Please define `$ENV:STARSHIP_CONFIG"
+}
+
+if (-not $ENV:GOTO_PROJECTS_PATH) {
+    Write-Warning "Goto function projects path environment variable is missing. Please define `$ENV:GOTO_PROJECTS_PATH"
+}
 
 # Initialize starship
 Invoke-Expression (&starship init powershell)
