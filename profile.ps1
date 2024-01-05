@@ -25,7 +25,11 @@ function goto {
 
     Switch ($location) {
         "projects" {
-            Set-Location -Path $ENV:GOTO_PROJECTS_PATH
+            if (-not $ENV:GOTO_PROJECTS_PATH) {
+                Write-Warning "Goto function projects path environment variable is missing. Please define `$ENV:GOTO_PROJECTS_PATH"
+            } else {
+                Set-Location -Path $ENV:GOTO_PROJECTS_PATH
+            }
         }
         "documents" {
             Set-Location -Path "$HOME/documents"
@@ -69,9 +73,7 @@ if (-not $ENV:STARSHIP_CONFIG) {
     Write-Warning "Starship Configuration environment variable is missing. Please define `$ENV:STARSHIP_CONFIG"
 }
 
-if (-not $ENV:GOTO_PROJECTS_PATH) {
-    Write-Warning "Goto function projects path environment variable is missing. Please define `$ENV:GOTO_PROJECTS_PATH"
-}
+export STARSHIP_CONFIG "$HOME\.starship\starship.toml"
 
 # Initialize starship
 Invoke-Expression (&starship init powershell)
