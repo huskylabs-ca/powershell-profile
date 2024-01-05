@@ -30,3 +30,6 @@ winget install -e --accept-source-agreements --accept-package-agreements --id St
 
 Write-Host "Installing Terminal Icons..."
 Install-Module -Name Terminal-Icons -Repository PSGallery -Force
+
+Write-Host "Installing PSWindowsUpdate..."
+Install-Module -Name PSWindowsUpdate -Repository PSGallery -Force
