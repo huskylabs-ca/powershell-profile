@@ -27,7 +27,7 @@ if (!(Test-Path -Path $PROFILE.CurrentUserAllHosts -PathType Leaf)) {
 }
 
 # Create Starship config file
-if (!(Test-Path -Path $ENV:STARSHIP_CONFIG -PathType Leaf)) {
+if (-not $env:STARSHIP_CONFIG -or !(Test-Path -Path $ENV:STARSHIP_CONFIG -PathType Leaf)) {
     try {
         if (!(Test-Path -Path "$HOME\.starship\")) {
                 New-Item -Path "$HOME\.starship\" -ItemType "directory"
