@@ -30,9 +30,10 @@ if (!(Test-Path -Path $PROFILE.CurrentUserAllHosts -PathType Leaf)) {
 if (-not $env:STARSHIP_CONFIG -or !(Test-Path -Path $ENV:STARSHIP_CONFIG -PathType Leaf)) {
     try {
         if (!(Test-Path -Path "$HOME\.starship\")) {
-                New-Item -Path "$HOME\.starship\" -ItemType "directory"
-            }
+            New-Item -Path "$HOME\.starship\" -ItemType "directory"
+        }
 
+        $ENV:STARSHIP_CONFIG = "$HOME\.starship\starship.toml"
         Invoke-RestMethod https://raw.githubusercontent.com/huskylabs-ca/powershell-profile/main/.starship/starship.toml -OutFile $ENV:STARSHIP_CONFIG
         Write-Host "Installing Starship profile @ [$($ENV:STARSHIP_CONFIG)]."
     }
