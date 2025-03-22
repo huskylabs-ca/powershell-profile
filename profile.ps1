@@ -70,10 +70,18 @@ function export($name, $value) {
 }
 
 if (-not $ENV:STARSHIP_CONFIG) {
-    Write-Warning "Starship Configuration environment variable is missing. Please define `$ENV:STARSHIP_CONFIG"
+    export STARSHIP_CONFIG "$HOME\.starship\starship.toml"
+}
+else {
+    export STARSHIP_CONFIG $ENV:STARSHIP_CONFIG
 }
 
-export STARSHIP_CONFIG "$HOME\.starship\starship.toml"
+if (-not $ENV:GOTO_PROJECTS_PATH) {
+    export GOTO_PROJECTS_PATH "$HOME\Projects\"
+}
+else {
+    export GOTO_PROJECTS_PATH $ENV:GOTO_PROJECTS_PATH
+}
 
 # Initialize starship
 Invoke-Expression (&starship init powershell)
