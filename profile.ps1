@@ -14,8 +14,12 @@
 # Import Terminal Icons
 Import-Module -Name Terminal-Icons
 
-function edit-profile {
+function edit-powershell-profile {
     notepad $profile.CurrentUserAllHosts
+}
+
+function edit-starship-profile {
+    notepad $ENV:STARSHIP_CONFIG
 }
 
 function goto {
